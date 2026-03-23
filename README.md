@@ -170,14 +170,6 @@ ForageDonn-es_AnalyseChurn/
 - `matplotlib` / `seaborn`
 - `streamlit`
 
-## Documentation d'equipe
-
-La documentation interne de travail est disponible dans le dossier [`wiki/`](wiki/).
-
-Page de depart :
-
-- [`wiki/Home.md`](wiki/Home.md)
-
 ## Lancement local de l'application
 
 Lorsque l'application sera prete :
