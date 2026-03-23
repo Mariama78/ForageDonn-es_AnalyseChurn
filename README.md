@@ -4,7 +4,6 @@
 
 Projet de groupe realise dans le cadre du cours de forage de donnees. L'objectif est de construire un systeme de classification supervisee capable de predire si un client telecom risque de quitter le service (`Churn`), puis d'integrer les resultats dans une application Streamlit.
 
-- Date de remise : `19 avril 2026 a 23h55`
 - Dataset : [Telco Customer Churn](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
 - Cible : `Churn`
 - Taille du dataset : environ `7043` observations
@@ -20,13 +19,6 @@ Le projet suit les etapes du devoir :
 5. Integration dans une application Streamlit
 6. Rapport final et evaluation par les pairs
 
-## Equipe et roles
-
-- Personne 1 : `Mariama` - preparation des donnees
-- Personne 2 : `Lovely` - preprocessing et selection de variables
-- Personne 3 : `Ruben` - modelisation
-- Personne 4 : `Paul Yvan` - evaluation finale, Streamlit et integration
-
 ## Methode de travail
 
 L'equipe travaille de facon sequentielle sur le pipeline principal :
@@ -41,8 +33,6 @@ Chaque etape doit etre validee avant le passage a la suivante. Le but est d'evit
 ## Repartition proposee des taches
 
 ### Personne 1 - Preparation des donnees
-
-Responsable : `Mariama`
 
 Responsabilites :
 
@@ -64,8 +54,6 @@ Livrables :
 
 ### Personne 2 - Preprocessing et selection de variables
 
-Responsable : `Lovely`
-
 Responsabilites :
 
 - faire le `train/test split`
@@ -84,8 +72,6 @@ Livrables :
 
 ### Personne 3 - Modelisation
 
-Responsable : `Ruben`
-
 Responsabilites :
 
 - entrainer 3 modeles de classification differents
@@ -102,8 +88,6 @@ Livrables :
 - fonction reutilisable du type `predict_all_models()`
 
 ### Personne 4 - Evaluation finale, Streamlit et integration
-
-Responsable : `Paul Yvan`
 
 Responsabilites :
 
@@ -214,3 +198,7 @@ Chaque membre doit avoir une contribution visible sur GitHub via :
 - participation a la redaction du rapport
 
 Une bonne trace GitHub aidera a justifier l'implication de chacun.
+
+## Note
+
+Les informations personnelles de l'equipe et l'organisation interne detaillee ne sont pas affichees dans ce depot public.
