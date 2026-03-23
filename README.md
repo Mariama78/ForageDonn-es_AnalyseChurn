@@ -46,7 +46,7 @@ ForageDonn-es_AnalyseChurn/
 
 ## Lancement local
 
-Quand l'application sera disponible :
+pour lancer lapplication :
 
 ```bash
 streamlit run app.py
