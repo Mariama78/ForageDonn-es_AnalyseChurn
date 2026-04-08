@@ -94,3 +94,15 @@ On remarque que:
 - tenure vs Churn : corrélation négative ce qui signifie que plus la durée est longue, moins le churn est probable
 - MonthlyCharges vs Churn : corrélation positive, les charges élevées sont associées au churn
 - tenure vs TotalCharges : très forte corrélation, plus la tenure augmente plus la charge augmente.
+
+---
+
+## Preprocessing et Sélection de Variables
+
+Cette section reprend les données nettoyées et prépare les jeux de données finaux pour la modélisation.
+
+Pour commencer, les 15 variables catégorielles ont été encodées en variables numériques via One-Hot Encoding, ce qui a porté le nombre de variables de 19 à 30. Ensuite, les données ont été découpées en 80% train et 20% test avec stratification pour garantir que la proportion de churn reste identique dans les deux ensembles. Une analyse du déséquilibre des classes a montré un ratio de 2.77:1, considéré comme modéré. Les variables numériques continues `tenure`, `MonthlyCharges` et `TotalCharges` ont été normalisées via StandardScaler.
+
+Pour la sélection de variables, la méthode retenue est l'importance des features par Random Forest. Cette méthode a été choisie car elle est robuste, non paramétrique et capture les relations non-linéaires sans suppositions sur la distribution des données. En appliquant un seuil d'importance de 1%, on est passé de 30 à 21 variables finales. Les 9 variables éliminées correspondaient toutes à des modalités redondantes de type "No internet service" ou "No phone service" qui n'apportaient pas d'information utile pour prédire le churn.
+
+Les fichiers produits pour l'application Streamlit sont : `data/X_train_final.csv`, `data/X_test_final.csv`, `data/y_train.csv`, `data/y_test.csv`, `models/scaler.pkl` et `models/selected_features.json`.
