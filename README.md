@@ -30,6 +30,7 @@ Le projet couvre les grandes etapes suivantes :
 - `matplotlib`
 - `seaborn`
 - `streamlit`
+- `xgboost`
 
 ## Structure du depot
 
@@ -106,3 +107,47 @@ Pour commencer, les 15 variables catégorielles ont été encodées en variables
 Pour la sélection de variables, la méthode retenue est l'importance des features par Random Forest. Cette méthode a été choisie car elle est robuste, non paramétrique et capture les relations non-linéaires sans suppositions sur la distribution des données. En appliquant un seuil d'importance de 1%, on est passé de 30 à 21 variables finales. Les 9 variables éliminées correspondaient toutes à des modalités redondantes de type "No internet service" ou "No phone service" qui n'apportaient pas d'information utile pour prédire le churn.
 
 Les fichiers produits pour l'application Streamlit sont : `models/scaler.pkl` pour reproduire la normalisation sur de nouvelles données et `models/selected_features.json` pour connaître les 21 variables à utiliser en entrée des modèles.
+
+## Conclusion de la modélisation
+
+Trois modèles de classification ont été entraînés et évalués sur le jeu
+de validation puis confirmés sur le jeu de test final.
+
+### Métriques retenues
+
+Deux métriques ont guidé l'évaluation et la comparaison des modèles :
+
+**AUC-ROC** utilisée pour comparer les modèles entre eux de façon neutre. Elle mesure la capacité de discrimination sur tous les seuils de décision possibles, indépendamment du seuil par défaut de 0.5.
+
+**Recall sur la classe Churn** qui est la métrique la plus importante du point devue métier. Dans un contexte télécom, manquer un churner (faux négatif) est plus coûteux que générer une fausse alerte (faux positif) : un client non identifié part sans qu'on intervienne, une fausse alerte génère simplement une offre de rétention inutile. Maximiser le recall revient donc à minimiser les clients perdus sans intervention.
+
+### Classement des modèles
+
+**1. Régression Logistique**
+- AUC-ROC : 0.84
+- Recall Churn : 0.78
+- F1 Churn : 0.61
+
+**2. XGBoost**
+- AUC-ROC : 0.81
+- Recall Churn : 0.63
+- F1 Churn : 0.58
+
+**3. Random Forest**
+- AUC-ROC : 0.82
+- Recall Churn : 0.46
+- F1 Churn : 0.54
+
+### Interprétation
+
+La régression logistique, modèle le plus simple, obtient les meilleures performances sur les deux métriques retenues. Ce résultat contre-intuitif
+s'explique par la nature des données : les relations entre les features et la probabilité de churn sont majoritairement linéaires. La complexité supplémentaire de XGBoost et du Random Forest n'apporte pas d'amélioration significative.
+
+Le Random Forest présente le recall le plus faible sur les churneurs (0.46), ce qui signifie qu'il rate plus de la moitié des vrais churneurs. Dans un contexte télécom où chaque client perdu représente un coût, ce comportement le rend inadapté à l'objectif principal.
+
+Les performances sont stables entre validation et test pour les trois modèles, confirmant l'absence de surapprentissage et une bonne capacité de
+généralisation sur des données inconnues.
+
+### Modèle recommandé
+
+La **régression logistique** est retenue comme modèle principal pour l'application Streamlit. Le fichier est disponible dans `models/model_logistic_regression.pkl`.
