@@ -1,0 +1,27 @@
+{
+  "modele_recommande": "Régression logistique",
+  "metrique_principale": "recall_churn",
+  "metriques_test": {
+    "Régression logistique": {
+      "accuracy": 0.74,
+      "precision_churn": 0.5,
+      "recall_churn": 0.78,
+      "f1_churn": 0.61,
+      "auc_roc": 0.8399
+    },
+    "Random forest": {
+      "accuracy": 0.79,
+      "precision_churn": 0.64,
+      "recall_churn": 0.46,
+      "f1_churn": 0.54,
+      "auc_roc": 0.8194
+    },
+    "XGBoost": {
+      "accuracy": 0.76,
+      "precision_churn": 0.54,
+      "recall_churn": 0.63,
+      "f1_churn": 0.58,
+      "auc_roc": 0.8078
+    }
+  }
+}
