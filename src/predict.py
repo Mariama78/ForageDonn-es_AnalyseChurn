@@ -29,6 +29,18 @@ def _format_model_load_error(exc: Exception) -> str:
     return f"{type(exc).__name__}: {message}"
 
 
+def _patch_loaded_model(model: Any) -> Any:
+    # Some teammates may load the serialized LogisticRegression model with a
+    # slightly different scikit-learn version. Older releases still expect the
+    # `multi_class` attribute during prediction.
+    if model.__class__.__name__ == "LogisticRegression" and not hasattr(
+        model, "multi_class"
+    ):
+        setattr(model, "multi_class", "auto")
+
+    return model
+
+
 def load_models_with_errors(
     models_dir: Path | None = None,
 ) -> tuple[dict[str, Any], dict[str, str]]:
@@ -38,7 +50,8 @@ def load_models_with_errors(
 
     for model_name, filename in MODEL_FILES.items():
         try:
-            models[model_name] = joblib.load(models_path / filename)
+            loaded_model = joblib.load(models_path / filename)
+            models[model_name] = _patch_loaded_model(loaded_model)
         except Exception as exc:
             errors[model_name] = _format_model_load_error(exc)
 
